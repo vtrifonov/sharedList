@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "prestart": "grunt"
+    "prestart": "grunt",
+    "install": "bower install --allow-root && grunt"
   },
   "main": "./bin/www",
   "dependencies": {
@@ -14,6 +15,7 @@
     "debug": "~0.7.4",
     "ejs": "~0.8.5",
     "express": "~4.8.0",
+    "grunt": "^0.4.5",
     "lodash": "^2.4.1",
     "morgan": "~1.3.0",
     "serve-favicon": "~2.1.3"
