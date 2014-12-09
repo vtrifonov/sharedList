@@ -36,7 +36,7 @@
       var itemsToDelete = _.filter(dateItem[0].items, function(item){ return item.name == req.params.name.trim();});
       if(itemsToDelete.length > 0)
       {
-        dateItem[0].items = _.remove(dateItem[0].items, function(item){ return item.name == req.params.name.trim();});
+        dateItem[0].items = _.filter(dateItem[0].items, function(item){ return item.name != req.params.name.trim();});
         saveItemsData(function (err) {
           if (err) {
             console.log(err);
@@ -136,6 +136,7 @@
       if(requestItem.item && _.find(itemForDate.items, function(item){return item.name === requestItem.item.name}))
       {
         res.status(409).send('Item already exists!');
+        return;
       }
       else if (requestItem.item){
         itemForDate.items.push(requestItem.item);
