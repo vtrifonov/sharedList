@@ -15,6 +15,20 @@
     res.json(items);
   });
 
+  router.get('/distinct/', function (req, res) {
+    var distinctItems = [];
+    _.forEach(items, function(item) {
+      distinctItems = _.union(distinctItems, item.items);
+    });
+    var distinctNames = [];
+    _.forEach(distinctItems, function(item){
+      distinctNames.push(item.name);
+    });
+
+    distinctNames = _.uniq(distinctNames, true);
+    res.json(distinctNames);
+  });
+
   router.post('/', function (req, res) {
     var requestItem = req.body;
 

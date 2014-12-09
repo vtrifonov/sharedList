@@ -1,7 +1,7 @@
 (function(){
     'use strict';
 
-    var app = angular.module("sharedList", ["ngRoute"]);
+    var app = angular.module('sharedList', ['ngRoute', 'ui.bootstrap']);
 
     app.config(function ($routeProvider, $locationProvider) {
         $routeProvider

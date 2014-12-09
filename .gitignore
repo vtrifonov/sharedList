@@ -28,5 +28,4 @@ node_modules
 .lock-wscript
 
 public/libs/*
-.idea/workspace.xml
-.idea/tasks.xml
+.idea

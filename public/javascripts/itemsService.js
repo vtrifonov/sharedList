@@ -10,11 +10,19 @@
 
         var addItem = function(item){
             return $http.post("items", item);
+        };
+
+        var getDistinctItems = function(){
+            return $http.get("items/distinct")
+                .then(function(response){
+                    return response.data;
+                })
         }
 
         return {
             getItems: getItems,
-            addItem: addItem
+            addItem: addItem,
+            getDistinctItems: getDistinctItems
         };
 
     };
