@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "prestart": "grunt",
-    "install": "bower install --allow-root && grunt"
+    "prestart": "grunt"
+//    "install": "bower install --allow-root && grunt"
   },
   "dependencies": {
     "body-parser": "~1.0.0",
