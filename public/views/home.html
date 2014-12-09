@@ -1,4 +1,36 @@
-<div class='container-fluid'>
+<div class='container'>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="panel-heading">
+                        <h4>Дерби</h4>
+                    </div>
+                    <div class="list-group">
+                        <a ng-repeat="item in items" class="list-group-item"
+                           ng-class="selectedItem == item ? 'active' : ''"
+                           ng-click="selectItem(item)">
+                            {{ item.date }}
+                        </a>
+                    </div>
+                    <button type="button" class="btn btn-success" ng-click="newItem()">Новo</button>
+                    <button ng-disabled="!selectedItem" type="button" class="btn btn-warning" ng-click="deleteDate(selectedItem.date)">Изтрии</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                AAAAAAA
+            </div>
+            <div class="row">
+                BBBBBBBB
+            </div>
+            <div class="row">
+                CCCCCC
+            </div>
+        </div>
+    </div>
+
     <h4>Static arrays</h4>
     <pre>Model: {{selected | json}}</pre>
     <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control">

@@ -58,6 +58,28 @@
     }
   });
 
+  router.delete('/deleteDate/:date/', function (req, res) {
+    var dateItem = _.filter(items, function (item) { return item.date == req.params.date.trim(); });
+    if (dateItem.length > 0)
+    {
+      _.remove(items, function (item) { return item.date == req.params.date.trim(); });
+
+      saveItemsData(function (err) {
+          if (err) {
+            console.log(err);
+            res.status(500).send('Error deleting element!');
+          } else {
+            console.log("The file was saved!");
+            res.status(204).send("The entry was deleted");
+          }
+        });
+    }
+    else
+    {
+      res.status(404).send('there are no items for ' + req.params.date.trim());
+    }
+  });
+
   router.get('/distinct/', function (req, res) {
     var distinctItems = [];
     _.forEach(items, function(item) {
@@ -72,6 +94,14 @@
     res.json(distinctNames);
   });
 
+  router.get('/dates/', function (req, res) {
+    var dates = [];
+    _.forEach(items, function(item) {
+      dates.push(item.date);
+    });
+    res.json(dates);
+  });
+
   router.post('/', function (req, res) {
     var requestItem = req.body;
 
@@ -79,11 +109,11 @@
       res.status(400).send('Please provide date!');
       res.end();
     }
-    else if(!requestItem.item) {
-      res.status(400).send('Please provide item!');
-      res.end();
-    }
-    else if(!requestItem.item.name) {
+    //else if(!requestItem.item) {
+    //  res.status(400).send('Please provide item!');
+    //  res.end();
+    //}
+    else if(requestItem.item && !requestItem.item.name) {
       res.status(400).send('Please provide name!');
       res.end();
     }
@@ -103,23 +133,25 @@
         items.push(itemForDate);
       }
 
-      if(_.find(itemForDate.items, function(item){return item.name === requestItem.item.name}))
+      if(requestItem.item && _.find(itemForDate.items, function(item){return item.name === requestItem.item.name}))
       {
         res.status(409).send('Item already exists!');
       }
-      else {
+      else if (requestItem.item){
         itemForDate.items.push(requestItem.item);
-
-        saveItemsData(function (err) {
-          if (err) {
-            console.log(err);
-            res.status(500).send('Error saving file!');
-          } else {
-            console.log("The file was saved!");
-            res.status(201).send("The entry was saved");
-          }
-        });
       }
+
+      sortItems();
+
+      saveItemsData(function (err) {
+        if (err) {
+          console.log(err);
+          res.status(500).send('Error saving file!');
+        } else {
+          console.log("The file was saved!");
+          res.status(201).send("The entry was saved");
+        }
+      });
     }
   })
 
@@ -131,12 +163,23 @@
     fs.readFile(filePath, "utf8", function (err, data) {
       if (!err) {
         items = JSON.parse(data);
-        items = _.sortBy(items, function (item) {
-          return item.createdOn;
-        })
+        sortItems();
       }
     });
   };
+
+  var sortItems = function(){
+    items = _.sortBy(items, function (item) {
+      if(item.createdOn) {
+        return new Date(item.createdOn);
+      }
+      else
+      {
+        return null;
+      }
+    })
+    items = items.reverse();
+  }
 
   var saveItemsData = function (success) {
     fs.writeFile(filePath, JSON.stringify(items), success);
