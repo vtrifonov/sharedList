@@ -47,7 +47,7 @@
             console.log("The file was saved!");
             res.status(204).send("The entry was deleted");
           }
-        })
+        });
       }
       else
       {
