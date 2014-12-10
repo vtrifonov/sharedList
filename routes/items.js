@@ -4,9 +4,11 @@
   var express = require('express'),
       router = express.Router(),
       _ = require('lodash'),
-      fs = require('fs');
+      fs = require('fs'),
+      mkdirp = require('mkdirp');
 
-  var filePath = 'data/items.json';
+  var dataFolder = 'data';
+  var filePath = dataFolder + '/data.json';
 
   var items = [];
 
@@ -158,6 +160,9 @@
 
   var loadItemsData = function () {
     //Read Constant User Licenses for Data file
+    if(!fs.existsSync(dataFolder)) {
+      mkdirp(dataFolder);
+    }
     if (!fs.existsSync(filePath)) {
       fs.writeFileSync(filePath, JSON.stringify([]));
     }
