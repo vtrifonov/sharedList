@@ -2,7 +2,7 @@
     var itemsService = function ($http) {
 
         var getItems = function (loaded) {
-            return $http.get("items")
+            return $http.get("items?t=" + new Date().getTime())
                 .then(loaded);
         };
 
@@ -19,12 +19,12 @@
         };
 
         var getDistinctItems = function(loaded){
-            return $http.get("items/distinct")
+            return $http.get("items/distinct?t=" + new Date().getTime())
                 .then(loaded);
         };
 
         var getDates = function(loaded){
-            return $http.get("items/dates")
+            return $http.get("items/dates?t=" + new Date().getTime())
                 .then(loaded)
         };
 
