@@ -104,6 +104,11 @@
     res.json(dates);
   });
 
+  router.post('/reload', function (req, res) {
+    loadItemsData();
+    res.status(204).send('Items Reloaded!');
+  });
+
   router.post('/', function (req, res) {
     var requestItem = req.body;
 
