@@ -40,7 +40,7 @@
                         <a ng-repeat="item in selectedItem.items" class="list-group-item"
                            ng-class="selectedPerson == item ? 'active' : ''"
                            ng-click="selectPerson(item)">
-                            {{ item.name }}
+                            {{$index + 1}}. {{ item.name }}
                         </a>
                     </div>
 
