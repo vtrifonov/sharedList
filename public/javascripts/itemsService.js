@@ -28,13 +28,18 @@
                 .then(loaded)
         };
 
+        var updatePerson = function(date, person){
+            return $http.put("items/" + date + "/" + person.name + "/", person);
+        }
+
         return {
             getItems: getItems,
             addItem: addItem,
             getDistinctItems: getDistinctItems,
             getDates: getDates,
             deleteItem: deleteItem,
-            deleteDate: deleteDate
+            deleteDate: deleteDate,
+            updatePerson: updatePerson
         };
 
     };

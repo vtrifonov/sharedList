@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+.blue{
+  color: blue;
+}
+
+.hoverPointer{
+  cursor: pointer;
+}

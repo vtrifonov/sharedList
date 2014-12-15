@@ -6,6 +6,7 @@
     var modalController = function ($scope, $modalInstance, settings) {
         $scope.header = settings.header;
         $scope.resultText = settings.defaultMessage;
+        $scope.multiline = settings.multiline;
 
         $scope.ok = function (text) {
             $modalInstance.close(

@@ -31,6 +31,39 @@
     }
   });
 
+  router.put('/:date/:name', function(req, res){
+    var requestItem = req.body;
+
+    var itemForDate = _.find(items, function (item) { return item.date === req.params.date.trim()});
+    if(!itemForDate)
+    {
+      res.status(400).send('Please provide valid date!');
+      res.end();
+    }
+
+    var dateItems = itemForDate.items;
+
+    var searchedItem = _.find(dateItems, function(item){return item.name === req.params.name.trim()});
+    if(!searchedItem)
+    {
+      res.status(400).send('There is not item with name ' + req.params.name + ' in date ' + req.params.date + '!');
+      res.end();
+    }
+
+    searchedItem.sure = requestItem.sure;
+    searchedItem.note = requestItem.note;
+
+    saveItemsData(function (err) {
+      if (err) {
+        console.log(err);
+        res.status(500).send('Error saving file!');
+      } else {
+        console.log("The file was saved!");
+        res.status(204).send('Item updated!');
+      }
+    });
+  });
+
   router.delete('/delete/:date/:name', function (req, res) {
     var dateItem = _.filter(items, function (item) { return item.date == req.params.date.trim(); });
     if (dateItem.length > 0)

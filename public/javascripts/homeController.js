@@ -3,7 +3,7 @@
 
     var app = angular.module("sharedList");
 
-    var homeController = function ($scope, $modal, itemsService) {
+    var homeController = function ($scope, $modal, lodash, itemsService) {
 
         $scope.persionName = undefined;
 
@@ -45,7 +45,9 @@
             var newItem = {
                 date: $scope.selectedItem.date,
                 item:{
-                    name: name
+                    name: name,
+                    sure: false,
+                    note: ''
                 }
             };
 
@@ -64,6 +66,34 @@
                     alert(data);
                 }
             })
+        };
+
+        $scope.modifyPersonNote = function(person){
+            editNote(person.note).then(function(result){
+                if(result.success) {
+                    person.note = result.data;
+                    $scope.updatePerson(person);
+                }
+            });
+        };
+
+        var editNote = function(note){
+            var modalInstance = $modal.open({
+                templateUrl: 'views/modal.html',
+                controller: "modalController",
+
+                resolve: {
+                    settings: function () {
+                        return {
+                            header: 'Забележка:',
+                            defaultMessage: note,
+                            multiline: true
+                        };
+                    }
+                }
+            });
+
+            return modalInstance.result;
         }
 
         var addNewItem = function(){
@@ -98,6 +128,30 @@
                 $scope.names = response.data;
             });
         };
+
+        $scope.changeSure = function(person){
+            person.sure = !person.sure;
+            $scope.updatePerson(person);
+        }
+
+        $scope.updatePerson = function(person) {
+            itemsService.updatePerson($scope.selectedItem.date, person);
+        }
+
+        Object.defineProperty($scope, 'surePersons', {
+            get: function () {
+                if($scope.selectedItem && $scope.selectedItem.items) {
+                    var sureOnes = lodash.filter($scope.selectedItem.items, function (item) {
+                        return item.sure;
+                    });
+                    return sureOnes.length;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        });
 
         getItems(true);
         loadDistinctNames();

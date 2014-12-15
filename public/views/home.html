@@ -24,7 +24,7 @@
         <div class="col-md-6">
             <div class="panel panel-default" ng-show="selectedItem">
                 <div class="panel-heading">
-                    Участници
+                    Участници <span style="float:right"><i style="color: green">Сигурни: {{ surePersons }}</i></span>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -37,11 +37,15 @@
                     </div>
                     &nbsp;
                     <div class="list-group">
-                        <a ng-repeat="item in selectedItem.items" class="list-group-item"
-                           ng-class="selectedPerson == item ? 'active' : ''"
-                           ng-click="selectPerson(item)">
-                            {{$index + 1}}. {{ item.name }}
-                        </a>
+                        <span ng-repeat="person in selectedItem.items" class="list-group-item"
+                           ng-class="{ 'active' : selectedPerson == person, 'blue' : person.note }"
+                           ng-click="selectPerson(person)">
+                            {{$index + 1}}.
+                            <span class="glyphicon glyphicon-star-empty hoverPointer" aria-hidden="true" ng-hide="person.sure" ng-click="changeSure(person)"></span>
+                            <span class="glyphicon glyphicon-star hoverPointer" aria-hidden="true" ng-show="person.sure" ng-click="changeSure(person)"></span>
+                            {{ person.name }}
+                            <span class="glyphicon glyphicon-info-sign hoverPointer" aria-hidden="true" ng-click="modifyPersonNote(person)"></span>
+                        </span>
                     </div>
 
                     <button ng-disabled="!selectedPerson" type="button" class="btn btn-warning" ng-click="deletePerson(selectedPerson)">Изтрий избрания</button>
