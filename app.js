@@ -7,10 +7,13 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var auth = require('./routes/auth');
 var items = require('./routes/items');
 var files = require('./routes/files');
 
 var app = express();
+
+global.password = 'pianici';
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/users', users);
 app.use('/items', items);
 app.use('/files', files);
+app.use('/auth', auth);
 app.use('*', routes);
 
 // catch 404 and forward to error handler

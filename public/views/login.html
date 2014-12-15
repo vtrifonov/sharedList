@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Вход
+                </div>
+                <div class="panel-body">
+                    Парола: <input type="password" ng-model="pass"/>
+                    <br/>
+                    <br/>
+                    <button type="button" class="btn btn-success" ng-click="login()">Вход</button>
+                    <br ng-show="loginError"/>
+                    <br ng-show="loginError"/>
+                    <label class="label label-danger" ng-show="loginError">{{loginError}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

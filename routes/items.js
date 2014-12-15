@@ -14,10 +14,20 @@
 
   /* GET users listing. */
   router.get('/', function (req, res) {
+    if(!validateRequest(req)){
+      res.status(401).send('Unauthorized');
+      return;
+    }
+
     res.json(items);
   });
 
   router.get('/filtered/:date', function (req, res) {
+    if(!validateRequest(req)){
+      res.status(401).send('Unauthorized');
+      return;
+    }
+
     var result = _.filter(items, function (item) {
       return item.date == req.params.date.trim();
     });
@@ -32,6 +42,11 @@
   });
 
   router.put('/:date/:name', function(req, res){
+    if(!validateRequest(req)){
+      res.status(401).send('Unauthorized');
+      return;
+    }
+
     var requestItem = req.body;
 
     var itemForDate = _.find(items, function (item) { return item.date === req.params.date.trim()});
@@ -65,6 +80,11 @@
   });
 
   router.delete('/delete/:date/:name', function (req, res) {
+    if(!validateRequest(req)){
+      res.status(401).send('Unauthorized');
+      return;
+    }
+
     var dateItem = _.filter(items, function (item) { return item.date == req.params.date.trim(); });
     if (dateItem.length > 0)
     {
@@ -94,6 +114,11 @@
   });
 
   router.delete('/deleteDate/:date/', function (req, res) {
+    if(!validateRequest(req)){
+      res.status(401).send('Unauthorized');
+      return;
+    }
+
     var dateItem = _.filter(items, function (item) { return item.date == req.params.date.trim(); });
     if (dateItem.length > 0)
     {
@@ -116,6 +141,11 @@
   });
 
   router.get('/distinct/', function (req, res) {
+    if(!validateRequest(req)){
+      res.status(401).send('Unauthorized');
+      return;
+    }
+
     var distinctItems = [];
     _.forEach(items, function(item) {
       distinctItems = _.union(distinctItems, item.items);
@@ -130,6 +160,11 @@
   });
 
   router.get('/dates/', function (req, res) {
+    if(!validateRequest(req)){
+      res.status(401).send('Unauthorized');
+      return;
+    }
+
     var dates = [];
     _.forEach(items, function(item) {
       dates.push(item.date);
@@ -138,11 +173,21 @@
   });
 
   router.post('/reload', function (req, res) {
+    if(!validateRequest(req)){
+      res.status(401).send('Unauthorized');
+      return;
+    }
+
     loadItemsData();
     res.status(204).send('Items Reloaded!');
   });
 
   router.post('/', function (req, res) {
+    if(!validateRequest(req)){
+      res.status(401).send('Unauthorized');
+      return;
+    }
+
     var requestItem = req.body;
 
     if (!requestItem.date) {
@@ -195,6 +240,10 @@
       });
     }
   })
+
+  var validateRequest = function(req){
+    return req.cookies.pass == global.password || req.headers.authorization == global.password;
+  };
 
   var loadItemsData = function () {
     //Read Constant User Licenses for Data file

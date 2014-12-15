@@ -10,6 +10,11 @@
                 controller: "homeController",
                 name: "Home"
             })
+            .when("/login", {
+                templateUrl: "views/login.html",
+                controller: "loginController",
+                name: "Login"
+            })
             .otherwise({ redirectTo: "/" });
 
         $locationProvider.html5Mode(true);

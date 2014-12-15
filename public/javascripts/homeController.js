@@ -115,7 +115,7 @@
 
         var getItems = function(selectFirst){
             itemsService.getItems(function(response){
-                $scope.items = response.data;
+                $scope.items = response;
                 if($scope.items.length > 0 && selectFirst)
                 {
                     $scope.selectedItem = $scope.items[0];

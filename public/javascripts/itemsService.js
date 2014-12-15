@@ -3,7 +3,9 @@
 
         var getItems = function (loaded) {
             return $http.get("items?t=" + new Date().getTime())
-                .then(loaded);
+                .success(loaded).error(function(result){
+                    window.location = '/login';
+                });
         };
 
         var addItem = function(item){
