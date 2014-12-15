@@ -138,20 +138,22 @@
             itemsService.updatePerson($scope.selectedItem.date, person);
         }
 
-        Object.defineProperty($scope, 'surePersons', {
-            get: function () {
-                if($scope.selectedItem && $scope.selectedItem.items) {
-                    var sureOnes = lodash.filter($scope.selectedItem.items, function (item) {
-                        return item.sure;
-                    });
-                    return sureOnes.length;
-                }
-                else
-                {
-                    return 0;
-                }
+        $scope.surePersons = function() {
+            return getSurePersonsCount();
+        };
+
+        var getSurePersonsCount = function () {
+            if($scope.selectedItem && $scope.selectedItem.items) {
+                var sureOnes = lodash.filter($scope.selectedItem.items, function (item) {
+                    return item.sure;
+                });
+                return sureOnes.length;
             }
-        });
+            else
+            {
+                return 0;
+            }
+        };
 
         getItems(true);
         loadDistinctNames();
