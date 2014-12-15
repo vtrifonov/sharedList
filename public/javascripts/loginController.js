@@ -8,10 +8,8 @@
             $scope.loginError = '';
 
             $http.post("auth", { "pass" : $scope.pass }).success(function(result){
-                debugger;
                 window.location = '/';
             }).error(function(result){
-                debugger;
                 $scope.loginError = 'Грешна парола';
             });
         }
