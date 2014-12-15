@@ -53,7 +53,8 @@
         host: server_ip_address,
         port: server_port,
         path: '/items/reload',
-        method: 'POST'
+        method: 'POST',
+        headers: {'authorization': global.password}
     };
 
     module.exports = router;

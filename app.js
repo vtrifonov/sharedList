@@ -1,3 +1,5 @@
+global.password = 'pianici';
+
 var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');
@@ -12,8 +14,6 @@ var items = require('./routes/items');
 var files = require('./routes/files');
 
 var app = express();
-
-global.password = 'pianici';
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
