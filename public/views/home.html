@@ -45,14 +45,14 @@
                     Участници <span style="float:right"><i style="color: green">Сигурни: {{ surePersons() }}</i></span>
                 </div>
                 <div class="panel-body">
-                    <div class="row">
+                    <form class="row">
                         <div class="col-md-9">
                             <input type="text" ng-model="persionName" typeahead="name for name in names | filter:$viewValue | limitTo:8" class="form-control">
                         </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-success" ng-click="newPerson(persionName)">Добави</button>
+                            <button type="submit" class="btn btn-success" ng-click="newPerson(persionName)">Добави</button>
                         </div>
-                    </div>
+                    </form>
                     &nbsp;
                     <div class="list-group">
                         <span ng-repeat="person in selectedItem.items" class="list-group-item"
