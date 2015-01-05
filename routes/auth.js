@@ -4,7 +4,9 @@ var router = express.Router();
 /* GET users listing. */
 router.post('/', function(req, res) {
     if(req.body.pass == global.password) {
-        res.cookie('pass', global.password);
+        var expiresIn = new Date();
+        expiresIn.setDate(expiresIn.getDate()+14);
+        res.cookie('pass', global.password, { expires: expiresIn });
         res.status(200).end();
     }
     else{
