@@ -53,7 +53,8 @@
 
             itemsService.addItem(newItem).success(function(data, status, headers, config){
                 $scope.selectedItem.items.push({
-                    name: name
+                    name: name,
+                    sure: true
                 });
                 $scope.persionName = undefined;
                 loadDistinctNames();

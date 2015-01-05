@@ -33,7 +33,7 @@
     });
     if (result.length > 0)
     {
-        res.json(result[0].items);
+      res.json(result[0].items);
     }
     else
     {
@@ -125,14 +125,14 @@
       _.remove(items, function (item) { return item.date == req.params.date.trim(); });
 
       saveItemsData(function (err) {
-          if (err) {
-            console.log(err);
-            res.status(500).send('Error deleting element!');
-          } else {
-            console.log("The file was saved!");
-            res.status(204).send("The entry was deleted");
-          }
-        });
+        if (err) {
+          console.log(err);
+          res.status(500).send('Error deleting element!');
+        } else {
+          console.log("The file was saved!");
+          res.status(204).send("The entry was deleted");
+        }
+      });
     }
     else
     {
@@ -155,7 +155,9 @@
       distinctNames.push(item.name);
     });
 
-    distinctNames = _.uniq(distinctNames, true);
+    distinctNames = _.uniq(distinctNames, function(name) { return name.toLowerCase(); });
+    distinctNames = _.sortBy(distinctNames, function(name) { return name.toLowerCase(); });
+
     res.json(distinctNames);
   });
 

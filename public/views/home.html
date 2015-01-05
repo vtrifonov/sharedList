@@ -56,8 +56,8 @@
                     &nbsp;
                     <div class="list-group">
                         <span ng-repeat="person in selectedItem.items" class="list-group-item"
-                           ng-class="{ 'active' : selectedPerson == person, 'blue' : person.note }"
-                           ng-click="selectPerson(person)">
+                              ng-class="{ 'active' : selectedPerson == person, 'blue' : person.note }"
+                              ng-click="selectPerson(person)">
                             {{$index + 1}}.
                             <span class="glyphicon glyphicon-star-empty hoverPointer" aria-hidden="true" ng-hide="person.sure" ng-click="changeSure(person)"></span>
                             <span class="glyphicon glyphicon-star hoverPointer" aria-hidden="true" ng-show="person.sure" ng-click="changeSure(person)"></span>
