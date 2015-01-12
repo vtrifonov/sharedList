@@ -15,7 +15,7 @@
         $scope.selectPerson = function(person)
         {
             $scope.selectedPerson = person;
-        }
+        };
 
         $scope.newItem = function(){
             addNewItem().then(function(result){
@@ -27,7 +27,7 @@
 
         $scope.deleteDate = function(item){
             if(confirm('Сигурен ли си че искаш да изтриеш избраното дерби - ' + item + '?')) {
-                itemsService.deleteDate(item).then(function (result) {
+                itemsService.deleteDate(item).then(function () {
                     getItems(true);
                 });
             }
@@ -35,7 +35,7 @@
 
         $scope.deletePerson = function(person){
             if(confirm('Сигурен ли си че искаш да изтриеш ' + person.name + ' от списъка за ' + $scope.selectedItem.date + '?')) {
-                itemsService.deleteItem({date: $scope.selectedItem.date, name: person.name }).then(function (result) {
+                itemsService.deleteItem({date: $scope.selectedItem.date, name: person.name }).then(function () {
                     getItems(true);
                 });
             }
@@ -46,7 +46,7 @@
                 date: $scope.selectedItem.date,
                 item:{
                     name: name,
-                    sure: false,
+                    sure: true,
                     note: ''
                 }
             };
